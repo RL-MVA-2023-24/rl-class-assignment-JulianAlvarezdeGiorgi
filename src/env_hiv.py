@@ -15,11 +15,11 @@ class HIVPatient(gym.Env):
     ):
         super(HIVPatient, self).__init__()
 
-        self.domain_randomization = domain_randomization
-        self.action_space = gym.spaces.Discrete(4)
+        self.domain_randomization = domain_randomization 
+        self.action_space = gym.spaces.Discrete(4) 
         self.observation_space = gym.spaces.Box(
             shape=(6,), low=-np.inf, high=np.inf, dtype=np.float32
-        )
+        ) 
 
         self.T1 = 163573.0  # healthy type 1 cells concentration (cells per mL)
         self.T1star = 11945.0  # infected type 1 cells concentration (cells per mL)
@@ -31,7 +31,7 @@ class HIVPatient(gym.Env):
         # actions
         self.action_set = [
             np.array(pair) for pair in [[0.0, 0.0], [0.0, 0.3], [0.7, 0.0], [0.7, 0.3]]
-        ]
+        ] 
 
         self._reset_patient_parameters()
 
@@ -163,7 +163,7 @@ class HIVPatient(gym.Env):
         self._reset_patient_parameters()
 
         return self.state(), {}
-
+ 
     def der(self, state, action):
         T1 = state[0]
         T1star = state[1]
