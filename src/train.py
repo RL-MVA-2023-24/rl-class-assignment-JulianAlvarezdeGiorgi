@@ -22,7 +22,7 @@ env = TimeLimit(
 # ENJOY!
 class ProjectAgent:
 
-    def __init__(self, env, discount_factor=0.6, epsilon=0.15, horizon=1000):
+    def __init__(self, env = env, discount_factor=0.6, epsilon=0.15, horizon=1000):
         """
             The agent class that will be used to train the agent using Q-learning algorithm.
             Args:
@@ -35,7 +35,7 @@ class ProjectAgent:
         
         self.env = env
         self.action_space = env.action_space
-        self.q_table = RandomForestRegressor().fit(np.zeros((1,env.observation_space.shape[0]+1)),np.zeros(1))
+        self.q_table = RandomForestRegressor(n_estimators=50, min_samples_split=2, max_features=8).fit(np.zeros((1,env.observation_space.shape[0]+1)),np.zeros(1))
         self.observation_space = env.observation_space
         self.discount_factor = discount_factor
         self.epsilon = epsilon
@@ -61,14 +61,15 @@ class ProjectAgent:
             - path (str): The file path where the agent's state should be saved.
 
         """
-        joblib.dump(rf, "./Q_function.joblib")
+        joblib.dump(self.q_table, "./Q_function.joblib")
 
 
     def load(self):
         """
         Loads the agent's state from a file specified by the path (HARDCODED).
         """
-        self.q_table = joblib.load("./Q_function.joblib")
+ 
+        self.q_table = joblib.load('.\src\Q_function.joblib')
             
 
     def collect_samples(self, use_random=False):
@@ -131,7 +132,7 @@ class ProjectAgent:
                     Q2[:,a2] = Qfunctions[-1].predict(S2A2)
                 max_Q2 = np.max(Q2,axis=1)
                 value = R + self.discount_factor*(1-D)*max_Q2
-            Q = RandomForestRegressor()
+            Q = RandomForestRegressor(n_estimators=50, min_samples_split=2, max_features=8)
             Q.fit(SA,value)
             Qfunctions.append(Q)
             self.q_table = Qfunctions[-1]
