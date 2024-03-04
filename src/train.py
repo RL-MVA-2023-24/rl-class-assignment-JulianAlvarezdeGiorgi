@@ -1,7 +1,7 @@
 from gymnasium.wrappers import TimeLimit
 from env_hiv import HIVPatient
 import numpy as np
-from tqdm import tqdm
+#from tqdm import tqdm
 from sklearn.ensemble import RandomForestRegressor
 import numpy as np
 import os
@@ -85,7 +85,7 @@ class ProjectAgent:
             - D: list, the list of done flags
         '''
         S, A, R, S2, D = [], [], [], [], []
-        for _ in tqdm(range(self.horizon), desc="Collecting samples"):
+        for _ in range(self.horizon): #tqdm(range(self.horizon), desc="Collecting samples"):
             state, _ = self.env.reset()
             action = self.act(state, use_random)
             next_state, reward, done, trunc , _ = self.env.step(action)
@@ -121,7 +121,7 @@ class ProjectAgent:
         nb_samples = S.shape[0]
         Qfunctions = []
         SA = np.append(S,A,axis=1)
-        for iter in tqdm(range(nb_iter), desc="Fitted Q-Iteration"):
+        for iter in range(nb_iter): #tqdm(range(nb_iter), desc="Fitted Q-Iteration"):
             if iter==0:
                 value=R.copy()
             else:
