@@ -69,7 +69,7 @@ class ProjectAgent:
         Loads the agent's state from a file specified by the path (HARDCODED).
         """
  
-        self.q_table = joblib.load('.\src\Q_function.joblib')
+        self.q_table = joblib.load('.\Q_function.joblib')
             
 
     def collect_samples(self, use_random=False):
