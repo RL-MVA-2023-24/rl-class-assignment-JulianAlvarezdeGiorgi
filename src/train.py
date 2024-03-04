@@ -143,7 +143,7 @@ class ProjectAgent:
         '''
 
         S, A, R, S2, D = self.collect_samples(use_random=True)
-        self.fqi(S, A, R, S2, D, 100)
+        self.fqi(S, A, R, S2, D, 400)
         for loop in range(10):
             print("loop",loop)
             S1, A1, R1, S21, D1 = self.collect_samples(use_random=False)
@@ -152,6 +152,6 @@ class ProjectAgent:
             R = np.append(R,R1)
             S2 = np.append(S2,S21,axis=0)
             D = np.append(D,D1)
-            self.fqi(S, A, R, S2, D, 100)
+            self.fqi(S, A, R, S2, D, 400)
 
         
